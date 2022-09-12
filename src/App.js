@@ -6,37 +6,29 @@ import Header from "./components/Header";
 import PokemonCard from "./components/PokemonCard";
 
 function App() {
-  useEffect(() => {
-    getPoke();
-  }, []);
+  const[allPokemons, setAllPokemons] = useState([])
+  const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon?limit=50')
 
-  const [pokemons, setPokemons] = useState([]);
-  console.log(pokemons)
-  
+ const getAllPokemons = async () => {
+   const res = await fetch(loadMore)
+   const data = await res.json()
 
-  // buscar a api
-  const url = "https://pokeapi.co/api/v2/pokemon?limit=27";
-  const getPoke = async () =>{
-    const response = await fetch(url)
-    const data = await response.json()
-    setPokemons(data.results)
-    
+   setLoadMore(data.next)
 
-   const endpoint = []
-   for(let end = 1; end <= 27; end++ ){
-      endpoint.push(`https://pokeapi.co/api/v2/pokemon/${end}/`)
-
-      let response = Promise.all(
-       endpoint.map((endpoint) => fetch(endpoint)
-        .then(response => response.json())
-        .then(json => console.log(json.sprites.front_default))
-        // .then(data => setPokemons(data))
-          ))
+   function createPokemonObject(results)  {
+     results.forEach( async pokemon => {
+       const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+       const data =  await res.json()
+       setAllPokemons( currentList => [...currentList, data])
+       allPokemons.sort()
+     })
    }
+   createPokemonObject(data.results)
+ }
 
-  }
-
-
+useEffect(() => {
+ getAllPokemons()
+}, [])
 
 
   return (
@@ -45,9 +37,9 @@ function App() {
 
       <Container maxWidth="xl">
         <Grid container>
-          {pokemons.map((pokemon, key) => (
+          {allPokemons.map((pokemon, key) => (
             <Grid item xs={4} key={key}>
-              <PokemonCard name={pokemon.name} />
+              <PokemonCard name={pokemon.name} image={pokemon.sprites.other.dream_world.front_default}  />
             </Grid>
           ))}
         </Grid>

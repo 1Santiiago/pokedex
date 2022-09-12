@@ -8,11 +8,12 @@ import Typography from '@mui/material/Typography';
 
 export default function PokemonCard({name, type, image}) {
   return (
-    <Card sx={{ maxWidth: 345, marginTop: "2em" }}>
+    <Card sx={{ maxWidth: 400, marginTop: "2em" }}>
       <CardMedia
         component="img"
         alt="pokedex"
-        height="140"
+        width="400"
+        height="400"
         image = {image}
       />
       <CardContent>
