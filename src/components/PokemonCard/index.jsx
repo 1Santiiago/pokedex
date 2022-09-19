@@ -5,27 +5,30 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { color, textAlign } from '@mui/system';
 
-export default function PokemonCard({name, type, image}) {
+export default function PokemonCard({name, type, image, id}) {
   return (
-    <Card sx={{ maxWidth: 400, marginTop: "2em" }}>
+    <Card sx={{ maxWidth: 400, marginTop: "2em", textAlign:"center", backgroundColor:"#EB906A"}}>
       <CardMedia
         component="img"
         alt="pokedex"
-        width="400"
-        height="400"
+        width="100%"
+        height={'auto'}
         image = {image}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
+      <Typography gutterBottom variant="h5" component="div">
+          #{id}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {type}
+        <Typography gutterBottom variant="h5" component="div" letterSpacing="10px">
+          {name.toUpperCase()}
+        </Typography>
+        <Typography variant="body6" color="#fff" letterSpacing="2px">
+          Type: <sup>{type}</sup>
         </Typography>
       </CardContent>
       <CardActions>
-   
       </CardActions>
     </Card>
   );

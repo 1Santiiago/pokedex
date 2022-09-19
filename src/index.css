@@ -5,8 +5,18 @@
 }
 
 .header{
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: linear-gradient(to right, orange, red);
+background-color: #F55D40;
+}
+
+sup{
+  background-color: #BD426B;
+  color: white;
+  border-radius: 2px;
+  padding: 2px;
+  text-transform: uppercase;
+  text-align: center;
 }
